@@ -1,0 +1,8 @@
+{
+  "name": "Print Khaas - Quality Books & Educational Publishing",
+  "description": "Print Khaas is a premier Pakistani book publisher established in 2014 in Lahore, offering children's books, school book packages, activity books, and character-building publications for schools and parents.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

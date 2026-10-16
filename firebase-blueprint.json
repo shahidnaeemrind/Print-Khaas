@@ -1,0 +1,101 @@
+{
+  "entities": {
+    "Product": {
+      "title": "Product",
+      "description": "Educational book or school package published by Print Khaas",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique identifier of the product document" },
+        "title": { "type": "string", "description": "Title of the book or book package", "maxLength": 200 },
+        "slug": { "type": "string", "description": "URL slug generated from title", "maxLength": 220 },
+        "shortDescription": { "type": "string", "description": "Brief summary for catalog cards", "maxLength": 500 },
+        "fullDescription": { "type": "string", "description": "Full detailed description and curriculum alignment", "maxLength": 10000 },
+        "productType": { "type": "string", "enum": ["individual", "package"], "description": "Individual book or school package" },
+        "category": { "type": "string", "description": "Category such as Early Learning, Science, Islamic & Moral, etc.", "maxLength": 100 },
+        "targetAudience": { "type": "string", "enum": ["schools", "parents", "both"], "description": "Intended audience" },
+        "gradeRange": { "type": "string", "description": "Target grade or class range, e.g. Nursery - Prep, Class 1-5", "maxLength": 100 },
+        "language": { "type": "string", "description": "Language of the book, e.g. English, Urdu, Bilingual", "maxLength": 50 },
+        "pages": { "type": "string", "description": "Page count or package volume details", "maxLength": 50 },
+        "dimensions": { "type": "string", "description": "Dimensions and size info", "maxLength": 100 },
+        "binding": { "type": "string", "description": "Binding type, e.g. Paperback, Hardcover, Board Book", "maxLength": 100 },
+        "coverImage": { "type": "string", "description": "Primary book cover image URL", "maxLength": 2000 },
+        "additionalImages": { "type": "array", "description": "Optional secondary preview image URLs" },
+        "parentPrice": { "type": "number", "description": "Retail price for parents and home orders in PKR" },
+        "schoolPrice": { "type": "number", "description": "Discounted institutional/school price in PKR" },
+        "originalPrice": { "type": "number", "description": "Original retail price before discount" },
+        "discount": { "type": "string", "description": "Optional discount text or percentage", "maxLength": 50 },
+        "youtubeUrl": { "type": "string", "description": "YouTube video preview or walk-through URL", "maxLength": 1000 },
+        "drivePdfUrl": { "type": "string", "description": "Google Drive or sample PDF preview URL", "maxLength": 1000 },
+        "tableOfContents": { "type": "string", "description": "Table of contents or list of books included in a package", "maxLength": 5000 },
+        "learningOutcomes": { "type": "string", "description": "Key learning outcomes, skills, and features", "maxLength": 5000 },
+        "minOrderQuantity": { "type": "number", "description": "Minimum order quantity for schools" },
+        "stockStatus": { "type": "string", "enum": ["in_stock", "pre_order", "out_of_stock"], "description": "Availability status" },
+        "featured": { "type": "boolean", "description": "Whether to highlight on homepage" },
+        "status": { "type": "string", "enum": ["draft", "published"], "description": "Publication status" },
+        "sortOrder": { "type": "number", "description": "Display order priority" },
+        "seoTitle": { "type": "string", "description": "Custom SEO title", "maxLength": 200 },
+        "seoDescription": { "type": "string", "description": "Custom meta description", "maxLength": 500 },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Document creation timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Document last updated timestamp" }
+      },
+      "required": ["title", "slug", "productType", "category", "targetAudience", "status"]
+    },
+    "CompanySettings": {
+      "title": "CompanySettings",
+      "description": "Print Khaas business contact details, WhatsApp number, and address",
+      "type": "object",
+      "properties": {
+        "brandName": { "type": "string", "maxLength": 100 },
+        "tagline": { "type": "string", "maxLength": 200 },
+        "establishedYear": { "type": "string", "maxLength": 20 },
+        "address": { "type": "string", "maxLength": 300 },
+        "phone": { "type": "string", "maxLength": 50 },
+        "whatsappNumber": { "type": "string", "maxLength": 50 },
+        "email": { "type": "string", "maxLength": 100 },
+        "announcement": { "type": "string", "maxLength": 500 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["brandName", "whatsappNumber"]
+    },
+    "GlobalSeoSettings": {
+      "title": "GlobalSeoSettings",
+      "description": "Site-wide SEO configurations including title prefix, default meta description, favicon URL, and OpenGraph tags",
+      "type": "object",
+      "properties": {
+        "titlePrefix": { "type": "string", "maxLength": 100 },
+        "defaultDescription": { "type": "string", "maxLength": 500 },
+        "faviconUrl": { "type": "string", "maxLength": 2000 },
+        "keywords": { "type": "string", "maxLength": 500 },
+        "ogImageUrl": { "type": "string", "maxLength": 2000 },
+        "googleVerification": { "type": "string", "maxLength": 200 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["titlePrefix", "defaultDescription"]
+    },
+    "AdminProfile": {
+      "title": "AdminProfile",
+      "description": "Authorized administrator record",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "maxLength": 100 },
+        "role": { "type": "string", "maxLength": 50 },
+        "addedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Catalog of published and draft books and school packages"
+    },
+    "/settings/{settingId}": {
+      "schema": "CompanySettings",
+      "description": "Company profile, business address, WhatsApp contact, or global SEO configuration"
+    },
+    "/admins/{uid}": {
+      "schema": "AdminProfile",
+      "description": "Administrator allowlist for role validation"
+    }
+  }
+}
